@@ -1,27 +1,20 @@
 import React from 'react';
-// import {  } from '../HomePage.styled.jsx';
-import { BrowserRouter as Router,Route,Link,Switch, useRouteMatch} from "react-router-dom";
-import MovieDetailsPage from './MovieDetailsPage/MovieDetailsPage'
+import { BrowserRouter as Router,Link,useRouteMatch } from "react-router-dom";
 
 
 export default function MoviesPage({ films }) {
+    const { url } = useRouteMatch();
+    
     return (<>
-        <Router>
+     
         <ul> {films ? films.results.map((film) =>
-                <li key={film.id}>
-                <Link to={`/movieDetailsPage/${film.id}`} >{film.original_title}</Link>
-                <Switch>
-                    <Route path={`/movieDetailsPage/${film.id}`}><MovieDetailsPage /></Route>
-                </Switch>    
+            <li key={film.id}>
+                <Link to={`${url}/${film.id}`} filmName={film.original_title}>{film.original_title}</Link>
             </li>
                 )
             : <li>Any film was found yet</li>}
             </ul>    
-        
-        
-        </Router>
+    
    </>)
 }
 //  <img alt={film.original_title} src={'https://image.tmdb.org/t/p/w300' + film.backdrop_path}></img>
-
-

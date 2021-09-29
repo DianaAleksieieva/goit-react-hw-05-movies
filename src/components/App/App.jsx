@@ -6,13 +6,12 @@ import { BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
 import HomePage  from '../HomePage/HomePage'
 import MoviesPage from '../MoviesPage/MoviesPage'
 import Search from '../Search/Search'
-
+import MovieDetailsPage from '../MoviesPage/MovieDetailsPage/MovieDetailsPage'
 
 export default function App() {
   const [filmName, setFilmName] = useState('');
   const [films, setFilms] = useState('');
   const [findedFilms, setFindedFilms] = useState('');
-  
   
     useEffect(() => {
     filmAPI.fetchFilms()
@@ -23,14 +22,14 @@ export default function App() {
   useEffect(() => {
     filmByQueryAPI.fetchFilmsByQuery(filmName)
       .then(findedFilms => setFindedFilms(findedFilms))
-      .catch(error => { console.log('error') })
+      .catch(error => { console.log('emptyQuery') })
     }, [filmName])
   
   
   const findFilmByName = filmName => {
     setFilmName(filmName)
   }
-  
+
 
   
   return (
@@ -46,19 +45,16 @@ export default function App() {
       </ul>
       <ul className="App"></ul>
      <Switch>
-       <Route exact path="/trending" >
-        <HomePage films={films}/>
-          </Route>
-          
+       <Route path="/trending" ><HomePage films={films}/></Route>
+      
           <Route exact path="/movies" >
             <Search filmName={filmName} onSubmit={findFilmByName}></Search>
-        <MoviesPage films={findedFilms}/>
-      </Route>
-        </Switch>
-        </Router>
+            <MoviesPage films={films} />
+          </Route>
+
+          <Route path="/movies/:moviesId"><MovieDetailsPage films={films}/></Route>
+      </Switch>
+      </Router>
   </>
-  );
-  
+  ); 
 }
-
-
