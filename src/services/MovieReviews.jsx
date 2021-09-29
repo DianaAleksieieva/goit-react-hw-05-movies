@@ -1,8 +1,8 @@
 const baseURL = 'https://api.themoviedb.org/'    
 const key = '8148f961f3aed906702d0602e8247e76'
 
-function fetchMovieReviews(movieId) {
-    return fetch(`${baseURL}3/movie/${movieId}/reviews?api_key=${key}&language=en-US`)
+function fetchMovieReviews(moviesId) {
+    return fetch(`${baseURL}3/movie/${moviesId}/reviews?api_key=${key}&language=en-US`)
         .then(response => {
         if (response.ok) {
             return response.json();

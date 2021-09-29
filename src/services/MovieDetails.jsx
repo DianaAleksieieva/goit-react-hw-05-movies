@@ -1,4 +1,4 @@
-const baseURL = 'https://api.themoviedb.org'    
+const baseURL = 'https://api.themoviedb.org/'    
 const key = '8148f961f3aed906702d0602e8247e76'
 function fetchMovieDetails(movieId) {
     return fetch(`${baseURL}3/movie/${movieId}?api_key=${key}&language=en-US`)

@@ -1,38 +1,31 @@
-// .App {
-//   text-align: center;
-// }
+import styled from '@emotion/styled'
+import { Link } from 'react-router-dom';
 
-// .App-logo {
-//   height: 40vmin;
-//   pointer-events: none;
-// }
+export const Container = styled.div`
+padding:50px;
+`;
 
-// @media (prefers-reduced-motion: no-preference) {
-//   .App-logo {
-//     animation: App-logo-spin infinite 20s linear;
-//   }
-// }
+export const Header = styled.ul`
+margin:0;
+display:flex;
+padding-inline-start:0px;
+list-style-type: none;
+padding:20px;
+padding-left: 40px;
+box-shadow:2px 10px 4px -7px rgba(34, 60, 80, 0.16);
+`
 
-// .Header {
-//   background-color: #282c34;
-//   min-height: 100vh;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   font-size: calc(10px + 2vmin);
-//   color: white;
-// }
+export const PageHeader = styled.ul`
+padding:0;
+margin:0;
+font-size:24px;
+font-weight:500`
 
-// .App-link {
-//   color: #61dafb;
-// }
-
-// @keyframes App-logo-spin {
-//   from {
-//     transform: rotate(0deg);
-//   }
-//   to {
-//     transform: rotate(360deg);
-//   }
-// }
+export const StyledLink = styled(Link)`
+margin:0px;
+padding-right:15px;
+font-size:18px;
+color:black;
+font-weight:500;
+&:focus, &:hover, &:link, &:active {
+        color: #008B8B`

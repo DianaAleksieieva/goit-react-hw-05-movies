@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Input,Button,Form} from './Search.styled.jsx';
 
 export default function Search(props) {
     const [filmName, setFilmName] = useState('');
@@ -17,10 +18,10 @@ const reset = () => {
     setFilmName('')
   }
     return (
-        <form onSubmit={submitForm}>
-            <input value={filmName} onChange={handleChange}></input>
-            <button type="submit" >Search</button>
-            </form>
+        <Form onSubmit={submitForm}>
+            <Input value={filmName} onChange={handleChange}></Input>
+            <Button type="submit" >Search</Button>
+            </Form>
     )
 }
             

@@ -1,8 +1,8 @@
-// import { } from './App.styled.jsx';
+import {Container,Header,HeaderLink,PageHeader,StyledLink} from './App.styled.jsx';
 import filmAPI from '../../services/FilmApi'
 import filmByQueryAPI from '../../services/FilmQuery'
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
+import { BrowserRouter as Router,Switch,Route,NavLink } from "react-router-dom";
 import HomePage  from '../HomePage/HomePage'
 import MoviesPage from '../MoviesPage/MoviesPage'
 import Search from '../Search/Search'
@@ -35,25 +35,22 @@ export default function App() {
   return (
     <>
       <Router>
-    <ul className="App">
-      <li >
-        <Link to="/trending">Home Page</Link>
-      </li>
-             <li>
-        <Link to="/movies">Movies</Link>
-      </li>
-      </ul>
-      <ul className="App"></ul>
+        
+        <Header>
+        <StyledLink   to="/trending">Home Page</StyledLink >
+        <StyledLink  to="/movies">Movies</StyledLink >
+        </Header>
+        <Container>
      <Switch>
-       <Route path="/trending" ><HomePage films={films}/></Route>
-      
-          <Route exact path="/movies" >
+       <Route path="/trending" ><PageHeader>Trending</PageHeader><HomePage films={films}/></Route>
+          <Route exact path="/movies" ><PageHeader>Search Movie</PageHeader>
             <Search filmName={filmName} onSubmit={findFilmByName}></Search>
-            <MoviesPage films={films} />
+            <MoviesPage films={findedFilms} />
           </Route>
-
+    
           <Route path="/movies/:moviesId"><MovieDetailsPage films={films}/></Route>
       </Switch>
+      </Container>
       </Router>
   </>
   ); 
