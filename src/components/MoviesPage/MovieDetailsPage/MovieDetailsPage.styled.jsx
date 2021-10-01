@@ -26,3 +26,10 @@ margin:0;
 margin-bottom:20px;
 font-size:24px;
 font-weight:500`
+
+
+export const BackButton = styled.button`
+color:white;
+padding: 5px;
+background-color:black;
+border: none;`

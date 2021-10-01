@@ -1,5 +1,5 @@
-import {MoreInfoNav,MoreInfoNavItem,PageHeader} from './MovieDetailsPage.styled.jsx';
-import { BrowserRouter as Router, Route,Link,Switch, useRouteMatch} from "react-router-dom";
+import {MoreInfoNav,MoreInfoNavItem,PageHeader,BackButton} from './MovieDetailsPage.styled.jsx';
+import { BrowserRouter as Router, Route,Link,Switch, useRouteMatch, useLocation,useHistory } from "react-router-dom";
 import Cast  from '../Cast/Cast'
 import Reviews from '../Reviews/Reviews'
 import { useParams } from 'react-router-dom';
@@ -9,15 +9,21 @@ import MovieDetailsAPI from '../../../services/MovieDetails'
 export default function MovieDetailsPage() {
       const [details, setDetails] = useState('');
     const match = useRouteMatch()
+      const history = useHistory();
     const { moviesId } = useParams();
+ 
       useEffect(() => {
        MovieDetailsAPI.fetchMovieDetails(moviesId)
           .then(details => setDetails(details))
           .catch(error => { console.log('Details ferch error') });
-    }, [moviesId])
+      }, [moviesId])
+    const handleGoBack = () => {
+    history.goBack();
+  };
    
     return (
         <>
+             <BackButton onClick={handleGoBack}>Go back</BackButton>
             <PageHeader>Film Details</PageHeader>
             <Router>
                 {details ?
