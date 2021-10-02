@@ -7,51 +7,52 @@ import { useParams } from 'react-router-dom';
 import MovieDetailsAPI from '../../../services/MovieDetails'
 
 export default function MovieDetailsPage() {
-      const [details, setDetails] = useState('');
-    const match = useRouteMatch()
-      const history = useHistory();
-    const { moviesId } = useParams();
- 
-      useEffect(() => {
-       MovieDetailsAPI.fetchMovieDetails(moviesId)
-          .then(details => setDetails(details))
-          .catch(error => { console.log('Details ferch error') });
-      }, [moviesId])
-    const handleGoBack = () => {
-    history.goBack();
+  const [details, setDetails] = useState('');
+  const match = useRouteMatch()
+  const history = useHistory();
+  const location = useLocation();
+  const { moviesId } = useParams();
+
+  useEffect(() => {
+    MovieDetailsAPI.fetchMovieDetails(moviesId)
+      .then(details => setDetails(details))
+      .catch(error => { console.log('Details ferch error') });
+  }, [moviesId])
+    
+  const handleGoBack = () => {
+    if (location.state === '/movies') history.push('/movies')
+    else history.push('/trending')
   };
-   
-    return (
-        <>
-             <BackButton onClick={handleGoBack}>Go back</BackButton>
-            <PageHeader>Film Details</PageHeader>
-            <Router>
-                {details ?
-                    <> 
-                 <img alt={details.original_title} src={'https://image.tmdb.org/t/p/w300' + details.backdrop_path}></img>
-                <h2>{ details.original_title }</h2>
-                        <ul>
-                < li >User Score: {details.popularity}</li>
-         < li >Countries: 
-     {details.production_countries.map((countries) => <> {countries.iso_3166_1} </>)}
-         </li > 
+console.log(location)
+  return (
+    <>
+      <BackButton onClick={handleGoBack}>Go back</BackButton>
+        <PageHeader>Film Details</PageHeader>
+          <Router>
+        {details ? <>
+          <img alt={details.original_title} src={'https://image.tmdb.org/t/p/w300' + details.backdrop_path}></img>
+          <h2>{details.original_title}</h2>
           
-               <li>Genres: {details.genres.map((genres) =>
-                genres.name + ' ')} </li>
-                            
-                </ul></>            
-                    : <ul><li>No Film info</li></ul>}
-    <MoreInfoNav>
-        <MoreInfoNavItem to={`${match.url}/reviews`}>Reviews</MoreInfoNavItem>
-        <MoreInfoNavItem to={`${match.url}/cast`}>Cast</MoreInfoNavItem>
-    </MoreInfoNav>
-  <Switch>
-            <Route path={`${match.url}/cast`}><Cast id={moviesId}></Cast> </Route>
-            <Route path={`${match.url}/reviews`}> <Reviews id={moviesId}></Reviews> </Route>
-                </Switch>
-                </Router>
-        </>
-          )
+          <ul>
+            <li>User Score: {details.popularity}</li>
+            <li>Countries: {details.production_countries.map((countries) => <> {countries.iso_3166_1} </>)}</li>
+            <li>Genres: {details.genres.map((genres) => genres.name + ' ')} </li>
+          </ul></>
+          : <ul><li>No Film info</li></ul>}
+        
+        <MoreInfoNav>
+          <MoreInfoNavItem to={`${match.url}/reviews`}>Reviews</MoreInfoNavItem>
+          <MoreInfoNavItem to={`${match.url}/cast`}>Cast</MoreInfoNavItem>
+        </MoreInfoNav>
+        
+        <Switch>
+          <Route path={`${match.url}/cast`}><Cast id={moviesId}></Cast> </Route>
+          <Route path={`${match.url}/reviews`}> <Reviews id={moviesId}></Reviews> </Route>
+        </Switch>
+          
+        </Router>
+    </>
+        )
 }
 
 
